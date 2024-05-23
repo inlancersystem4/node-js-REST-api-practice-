@@ -1,16 +1,21 @@
 require('dotenv').config();
 
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
+const multer = require('multer');
 const userRouters = require("./routers/userRouters");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// Use user routers
+
+const upload = multer();
+
+app.use(upload.none());
+
 app.use("/", userRouters);
 
-// Start the server
 const PORT = process.env.PORT || 2020;
 app.listen(PORT, (err) => {
     if (err) {
