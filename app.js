@@ -1,26 +1,28 @@
-require('dotenv').config();
+require('dotenv').config()
 
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser')
+const multer = require('multer')
+const upload = multer()
 const app = express();
-const multer = require('multer');
-const userRouters = require("./routers/userRouters");
+const connection = require("./connection")
+const routers = require("./routers")
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(upload.none())
 
 
-const upload = multer();
+app.use("/", routers.famliyRouter)
 
-app.use(upload.none());
 
-app.use("/", userRouters);
+const PORT = process.env.PORT || 0;
 
-const PORT = process.env.PORT || 2020;
-app.listen(PORT, (err) => {
+app.listen(PORT, function (err) {
     if (err) {
-        console.log(err);
-    } else {
-        console.log(`Server running on port ${PORT}`);
+        console.error(err);
     }
-});
+    else {
+        console.log(`server run on this port ${PORT}`);
+    }
+})
+
