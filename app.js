@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express')
 const bodyparse = require('body-parser')
-const User = require('./models/user_model')
-// const sequelize = require('./connection')
+// const User = require('./models/user_model')
+require('./connection')
 const app = express();
 
 app.use(bodyparse.urlencoded({ extended: true }));
@@ -19,7 +19,7 @@ app.use(bodyparse.json());
 
 // Changes Update in Table 
 // Also use this 
-User.sync({ alter: true })
+// User.sync({ alter: true })
 
 // all existing models create use
 // sequelize.sync({ force: true })

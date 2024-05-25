@@ -1,8 +1,9 @@
 // Model Definition
 // Extending Model and calling init(attributes, options)
 
-const { DataTypes, Model } = require('sequelize');
-const sequelize =  require('../connection');
+  // const { DataTypes, Model } = require('sequelize');
+  // const sequelize =  require('../connection');
+module.exports = (sequelize, DataTypes, Model) => {
 
 class User extends Model {}
 
@@ -26,11 +27,10 @@ User.init(
 );
 
 // the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+// console.log(User === sequelize.models.User); // true
 
-module.exports = User
-
-
+// module.exports = User
+}
 
 
 
