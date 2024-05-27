@@ -3,10 +3,13 @@ const express = require('express')
 const bodyparse = require('body-parser')
 // const User = require('./models/user_model')
 require('./connection')
+var userCtrl = require('./controllers/userController')
 const app = express();
 
 app.use(bodyparse.urlencoded({ extended: true }));
 app.use(bodyparse.json());
+
+app.get('/', userCtrl.AddUser)
 
 // User.drop()
 

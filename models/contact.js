@@ -30,5 +30,6 @@ module.exports = (sequelize, DataTypes) => {
             // I want updatedAt to actually be called updateTimestamp
             // updatedAt: 'updated_at',
         },
-    )
-};
+    );
+    return Contact;
+}
