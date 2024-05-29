@@ -1,17 +1,19 @@
 require('dotenv').config();
 const express = require('express')
 const bodyparse = require('body-parser')
-// const User = require('./models/user_model')
+const userRouter = require('./routers/user')
 require('./connection')
-var userCtrl = require('./controllers/userController')
+// const User = require('./models/user_model')
+// var userCtrl = require('./controllers/userController')
 const app = express();
 
 app.use(bodyparse.urlencoded({ extended: true }));
 app.use(bodyparse.json());
+app.use('/',userRouter);
 
-app.get('/', userCtrl.AddUser)
-app.get('/user', userCtrl.getUser)
-app.get('/user/:id', userCtrl.getUserbyId)
+// app.get('/', userCtrl.AddUser)
+// app.get('/user', userCtrl.getUser)
+// app.get('/user/:id', userCtrl.getUserbyId)
 
 // User.drop()
 
