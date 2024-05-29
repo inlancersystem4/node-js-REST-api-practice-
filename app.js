@@ -10,6 +10,8 @@ app.use(bodyparse.urlencoded({ extended: true }));
 app.use(bodyparse.json());
 
 app.get('/', userCtrl.AddUser)
+app.get('/user', userCtrl.getUser)
+app.get('/user/:id', userCtrl.getUserbyId)
 
 // User.drop()
 

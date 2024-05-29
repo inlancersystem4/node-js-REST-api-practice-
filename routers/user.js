@@ -1,7 +1,7 @@
 const express = require("express");
+var userCtrl = require('../controllers/userController')
 
 const router = express.Router();
 
-router.get("/", function (res, req) {
-  res.send("hello");
-});
+
+router.get('/user', userCtrl.AddUser)
