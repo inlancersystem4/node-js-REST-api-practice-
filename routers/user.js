@@ -8,6 +8,8 @@ const router = express.Router();
 router.get('/', userCtrl.AddUser)
 router.get('/user', userCtrl.getUser)
 router.get('/user/:id', userCtrl.getUserbyId)
+router.get('/query', userCtrl.queryUser)
+router.get('/opuser', userCtrl.OperatorUserQuery)
 
 
 
