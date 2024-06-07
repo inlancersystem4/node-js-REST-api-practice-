@@ -1,8 +1,6 @@
-const { default: AsyncQueue } = require('sequelize/lib/dialects/mssql/async-queue');
 var db = require('../connection');
-const { Where } = require('sequelize/lib/utils');
 var User = db.user
-const { Sequelize, Op, where } = require('sequelize')
+const { Sequelize, Op } = require('sequelize')
 
 var AddUser = async (req, res) => {
     // const jane = User.build({ firstName: 'Denish', lastName: "Borad" });
@@ -76,23 +74,42 @@ var OperatorUserQuery = async (req, res) => {
 var findersUserQuery = async (req, res) => {
     const { count, rows } = await User.findAndCountAll({
         where: { lastName: 'borad' }
-      });
-    res.status(200).json({ user: rows, count:count });
+    });
+    res.status(200).json({ user: rows, count: count });
 }
 
 var gettersUserQuery = async (req, res) => {
     const data = await User.findAll({
         where: { lastName: 'borad' }
-      });
+    });
     res.status(200).json({ data: data });
 }
 
 var settersUserQuery = async (req, res) => {
-    const data = await User.create({
-        firstName: 'Denish!!@@@',
-        lastName: 'borad!!@@@'
-      });
-    res.status(200).json({ data: data });
+    var data = {};
+    var messages = {};
+    try {
+        data = await User.create({
+            firstName: 'DENISH!!@@@',
+            lastName: 'borad!!@@@'
+        });
+    } catch (e) {
+        // console.log(e.errors)
+        let message;
+        e.errors.forEach(error => {
+            switch (error.validatorKey) {
+                case 'isAlpha':
+                    message = error.message
+                    // message = "Allow Only Letters!!"
+                    break;
+                case 'isLowercase':
+                    message="Allow Only Lowercase!!"
+                    break;
+            }
+            messages[error.path] = message
+        });
+    }
+    res.status(200).json({ data: data, messages: messages });
 }
 
 var virtualUserQuery = async (req, res) => {
@@ -100,7 +117,7 @@ var virtualUserQuery = async (req, res) => {
         where: {
             lastName: "borad"
         }
-      });
+    });
     res.status(200).json({ data: data });
 }
 

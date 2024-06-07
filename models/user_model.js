@@ -13,6 +13,13 @@ User.init(
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate:{
+        isAlpha: {
+          msg:"Allow Only Letters!!"
+        },
+        isLowercase: true
+      },
       get() {
         const rawValue = this.getDataValue('firstName');
         return rawValue ? rawValue.toUpperCase() : null;

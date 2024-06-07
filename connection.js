@@ -21,5 +21,5 @@ db.sequelize = sequelize
 
 db.contact = require('./models/contact')(sequelize, DataTypes)
 db.user = require('./models/user_model')(sequelize, DataTypes, Model)
-db.sequelize.sync({ alter: false })
+db.sequelize.sync({ alter: true })
 module.exports = db;
