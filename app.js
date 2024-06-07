@@ -24,8 +24,8 @@ app.use('/',userRouter);
 // Force Fully Create Table
 // User.sync({ force: true })
 
-// Changes Update in Table 
-// Also use this 
+// Changes Update in Table
+// Also use this
 // User.sync({ alter: true })
 
 // all existing models create use

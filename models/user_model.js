@@ -13,10 +13,28 @@ User.init(
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
+      get() {
+        const rawValue = this.getDataValue('firstName');
+        return rawValue ? rawValue.toUpperCase() : null;
+      },
     },
     lastName: {
       type: DataTypes.STRING,
       // allowNull defaults to true
+      set(value) {
+        // Storing passwords in plaintext in the database is terrible.
+        // Hashing the value with an appropriate cryptographic hash function is better.
+        this.setDataValue('lastName', value + 'This is Me.');
+      }
+    },
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.firstName} ${this.lastName}`;
+      },
+      set(value) {
+        throw new Error('Do not try to set the `fullName` value!');
+      },
     },
   },
   {
