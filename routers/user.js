@@ -14,6 +14,7 @@ router.get('/finders', userCtrl.findersUserQuery)
 router.get('/getter-user', userCtrl.gettersUserQuery)
 router.get('/setter-user', userCtrl.settersUserQuery)
 router.get('/virtual-user', userCtrl.virtualUserQuery)
+router.get('/raw-queries', userCtrl.rawQueriesUser)
 
 
 

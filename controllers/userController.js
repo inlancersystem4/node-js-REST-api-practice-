@@ -1,6 +1,6 @@
 var db = require('../connection');
 var User = db.user
-const { Sequelize, Op } = require('sequelize')
+const { Sequelize, Op, QueryTypes } = require('sequelize')
 
 var AddUser = async (req, res) => {
     // const jane = User.build({ firstName: 'Denish', lastName: "Borad" });
@@ -103,7 +103,7 @@ var settersUserQuery = async (req, res) => {
                     // message = "Allow Only Letters!!"
                     break;
                 case 'isLowercase':
-                    message="Allow Only Lowercase!!"
+                    message = "Allow Only Lowercase!!"
                     break;
             }
             messages[error.path] = message
@@ -121,7 +121,40 @@ var virtualUserQuery = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
+var rawQueriesUser = async (req, res) => {
+    // const users = await db.sequelize.query('SELECT * FROM `users`', {
+    //     type: QueryTypes.SELECT,
+    //     model: User,
+    //     mapToModel: true,
+    // });
+
+    // const users = await db.sequelize.query('SELECT * FROM users WHERE id = ?', {
+    //     replacements: ['3'],
+    //     type: QueryTypes.SELECT,
+    // });
+
+    // const users = await db.sequelize.query('SELECT * FROM users WHERE id IN(:id)', {
+    //     replacements: { id: ['1', '5'] },
+    //     type: QueryTypes.SELECT,
+    //   });
+
+    // const users = await db.sequelize.query('SELECT * FROM users WHERE firstName LIKE :search_name', {
+    //     replacements: { search_name: 'alice%' },
+    //     type: QueryTypes.SELECT,
+    // });
+
+    // this give error 1069 ER_TOO_MANY_KEYS
+    const users = await db.sequelize.query(
+        'SELECT * FROM users WHERE id = $id',
+        {
+          bind: { id: '5' },
+          type: QueryTypes.SELECT,
+        },
+      );
+    res.status(200).json({ data: users });
+}
+
 module.exports = {
     AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery
+    settersUserQuery, virtualUserQuery, rawQueriesUser
 }
