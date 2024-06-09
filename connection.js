@@ -19,7 +19,11 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 
-db.contact = require('./models/contact')(sequelize, DataTypes)
 db.user = require('./models/user_model')(sequelize, DataTypes, Model)
+db.contact = require('./models/contact')(sequelize, DataTypes)
+
+db.user.hasOne(db.contact, {foreignKey: 'user_id', as: 'ContactDetails'})
+db.contact.belongsTo(db.user)
+
 db.sequelize.sync({ alter: true })
 module.exports = db;

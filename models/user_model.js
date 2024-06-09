@@ -13,7 +13,7 @@ User.init(
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate:{
         isAlpha: {
           msg:"Allow Only Letters!!"

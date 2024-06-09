@@ -1,10 +1,12 @@
 var db = require('../connection');
 var User = db.user
-const { Sequelize, Op, QueryTypes } = require('sequelize')
+var Contact = db.contact
+const { Sequelize, Op, QueryTypes, where } = require('sequelize');
+const { connect } = require('../routers/user');
 
 var AddUser = async (req, res) => {
     // const jane = User.build({ firstName: 'Denish', lastName: "Borad" });
-    const jane = await User.create({ firstName: 'Borad 1', lastName: "Denish 1" });
+    const jane = await User.create({ firstName: 'borad', lastName: "Denish" });
     // console.log(jane instanceof User); // true
     // console.log(jane.firstName); // "Jane"
     // await jane.save();
@@ -143,18 +145,43 @@ var rawQueriesUser = async (req, res) => {
     //     type: QueryTypes.SELECT,
     // });
 
-    // this give error 1069 ER_TOO_MANY_KEYS
     const users = await db.sequelize.query(
         'SELECT * FROM users WHERE id = $id',
         {
-          bind: { id: '5' },
-          type: QueryTypes.SELECT,
+            bind: { id: '5' },
+            type: QueryTypes.SELECT,
         },
-      );
+    );
     res.status(200).json({ data: users });
+}
+
+var oneToOneUser = async (req, res) => {
+    // const data = await User.create({
+    //     firstName: 'qqqqqqqqqq',
+    //     lastName: 'borad'
+    // });
+    // if (data && data.id){
+    //     await Contact.create({
+    //         address: 'Address !!',
+    //         phone_no: '1234567890',
+    //         user_id: data.id
+    //     });
+    // }
+
+    const data = await User.findAll({
+        attributes: ['firstName', 'lastName'],
+        include: [{
+            model: Contact,
+            as: 'ContactDetails',
+            attributes: ['address', 'phone_no']
+        }],
+        where: {id: 12}
+    });
+
+    res.status(200).json({ data: data });
 }
 
 module.exports = {
     AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery, rawQueriesUser
+    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser
 }
