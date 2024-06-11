@@ -2,7 +2,6 @@ var db = require('../connection');
 var User = db.user
 var Contact = db.contact
 const { Sequelize, Op, QueryTypes, where } = require('sequelize');
-const { connect } = require('../routers/user');
 
 var AddUser = async (req, res) => {
     // const jane = User.build({ firstName: 'Denish', lastName: "Borad" });
@@ -136,7 +135,7 @@ var rawQueriesUser = async (req, res) => {
     // });
 
     // const users = await db.sequelize.query('SELECT * FROM users WHERE id IN(:id)', {
-    //     replacements: { id: ['1', '5'] },
+    //     replacements: { id: ['1', '5', '11', '9'] },
     //     type: QueryTypes.SELECT,
     //   });
 
@@ -175,8 +174,19 @@ var oneToOneUser = async (req, res) => {
             as: 'ContactDetails',
             attributes: ['address', 'phone_no']
         }],
-        where: {id: 12}
+        where: {id: 11}
     });
+
+    // // reverse the attributes || foreignkey change in connection file
+    // const data = await Contact.findAll({
+    //     attributes: ['address', 'phone_no'],
+    //     include: [{
+    //         model: User,
+    //         as: 'UserDetails',
+    //         attributes: ['firstName', 'lastName']
+    //     }],
+    //     where: {id: 1}
+    // });
 
     res.status(200).json({ data: data });
 }

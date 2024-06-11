@@ -23,7 +23,9 @@ db.user = require('./models/user_model')(sequelize, DataTypes, Model)
 db.contact = require('./models/contact')(sequelize, DataTypes)
 
 db.user.hasOne(db.contact, {foreignKey: 'user_id', as: 'ContactDetails'})
-db.contact.belongsTo(db.user)
+
+// revers processing {foreignKey: 'user_id', as: 'UserDetails'} this used
+db.contact.belongsTo(db.user, {foreignKey: 'user_id', as: 'UserDetails'})
 
 db.sequelize.sync({ alter: true })
 module.exports = db;
