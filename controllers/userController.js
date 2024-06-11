@@ -174,7 +174,7 @@ var oneToOneUser = async (req, res) => {
             as: 'ContactDetails',
             attributes: ['address', 'phone_no']
         }],
-        where: {id: 11}
+        where: { id: 11 }
     });
 
     // // reverse the attributes || foreignkey change in connection file
@@ -191,7 +191,42 @@ var oneToOneUser = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
+
+
+var oneToManyUser = async (req, res) => {
+
+    // var data = await Contact.create({
+    //     address: 'Hello My address This !!',
+    //     phone_no: '1234567890',
+    //     user_id: 5
+    // });
+
+    const data = await User.findAll({
+        attributes: ['firstName', 'lastName'],
+        include: [{
+            model: Contact,
+            as: 'ContactDetails',
+            attributes: ['address', 'phone_no']
+        }],
+        // where: { id: 11 }
+    });
+
+    // // reverse the attributes || foreignkey change in connection file
+    // const data = await Contact.findAll({
+    //     attributes: ['address', 'phone_no'],
+    //     include: [{
+    //         model: User,
+    //         as: 'UserDetails',
+    //         attributes: ['firstName', 'lastName']
+    //     }],
+    //     where: {id: 3}
+    // });
+
+
+    res.status(200).json({ data: data });
+}
+
 module.exports = {
     AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser
+    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser
 }

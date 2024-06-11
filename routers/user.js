@@ -16,6 +16,7 @@ router.get('/setter-user', userCtrl.settersUserQuery)
 router.get('/virtual-user', userCtrl.virtualUserQuery)
 router.get('/raw-queries', userCtrl.rawQueriesUser)
 router.get('/one-to-one', userCtrl.oneToOneUser)
+router.get('/one-to-many', userCtrl.oneToManyUser)
 
 
 

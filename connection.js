@@ -22,7 +22,11 @@ db.sequelize = sequelize
 db.user = require('./models/user_model')(sequelize, DataTypes, Model)
 db.contact = require('./models/contact')(sequelize, DataTypes)
 
-db.user.hasOne(db.contact, {foreignKey: 'user_id', as: 'ContactDetails'})
+// hasOne Relationship
+// db.user.hasOne(db.contact, {foreignKey: 'user_id', as: 'ContactDetails'})
+
+// hasMany Relationship
+db.user.hasMany(db.contact, {foreignKey: 'user_id', as: 'ContactDetails'})
 
 // revers processing {foreignKey: 'user_id', as: 'UserDetails'} this used
 db.contact.belongsTo(db.user, {foreignKey: 'user_id', as: 'UserDetails'})
