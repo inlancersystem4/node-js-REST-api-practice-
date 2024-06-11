@@ -3,6 +3,11 @@ var User = db.user
 var Contact = db.contact
 const { Sequelize, Op, QueryTypes, where } = require('sequelize');
 
+var BaseUser = async (req, res) => {
+    const jane = "Hello World";
+    res.status(200).json(jane);
+}
+
 var AddUser = async (req, res) => {
     // const jane = User.build({ firstName: 'Denish', lastName: "Borad" });
     const jane = await User.create({ firstName: 'borad', lastName: "Denish" });
@@ -191,8 +196,6 @@ var oneToOneUser = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
-
-
 var oneToManyUser = async (req, res) => {
 
     // var data = await Contact.create({
@@ -226,7 +229,44 @@ var oneToManyUser = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
+var manyToManyUser = async (req, res) => {
+
+    // const data = await User.create({
+    //         firstName: 'ofroorkgkkfmroweo',
+    //         lastName: 'erogegeomeori'
+    //     });
+    //     if (data && data.id){
+    //         await Contact.create({
+    //             address: 'Address ##@#@r!!',
+    //             phone_no: '1234567890',
+    //         });
+    //     }
+
+    const data = await User.findAll({
+        attributes: ['firstName', 'lastName'],
+        include: [{
+            model: Contact,
+            as: 'ContactDetails',
+            attributes: ['address', 'phone_no']
+        }],
+        // where: { id: 11 }
+    });
+
+    // // reverse the attributes || foreignkey change in connection file
+    // const data = await Contact.findAll({
+    //     attributes: ['address', 'phone_no'],
+    //     include: [{
+    //         model: User,
+    //         attributes: ['firstName', 'lastName']
+    //     }],
+    //     where: {id: 3}
+    // });
+
+
+    res.status(200).json({ data: data });
+}
+
 module.exports = {
-    AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser
+    BaseUser, AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
+    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser, manyToManyUser
 }

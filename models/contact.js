@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             phone_no: {
                 type: DataTypes.STRING,
             },
-            user_id: DataTypes.INTEGER
+            // user_id: DataTypes.INTEGER
         },
         {
             // Other model options go here

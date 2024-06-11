@@ -5,7 +5,8 @@ const router = express.Router();
 
 
 
-router.get('/', userCtrl.AddUser)
+router.get('/', userCtrl.BaseUser)
+router.get('/add', userCtrl.AddUser)
 router.get('/user', userCtrl.getUser)
 router.get('/user/:id', userCtrl.getUserbyId)
 router.get('/query', userCtrl.queryUser)
@@ -17,6 +18,7 @@ router.get('/virtual-user', userCtrl.virtualUserQuery)
 router.get('/raw-queries', userCtrl.rawQueriesUser)
 router.get('/one-to-one', userCtrl.oneToOneUser)
 router.get('/one-to-many', userCtrl.oneToManyUser)
+router.get('/many-to-many', userCtrl.manyToManyUser)
 
 
 
