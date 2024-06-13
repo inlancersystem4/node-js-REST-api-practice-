@@ -246,10 +246,9 @@ var manyToManyUser = async (req, res) => {
         attributes: ['firstName', 'lastName'],
         include: [{
             model: Contact,
-            as: 'ContactDetails',
             attributes: ['address', 'phone_no']
         }],
-        // where: { id: 11 }
+        where: { id: 20 }
     });
 
     // // reverse the attributes || foreignkey change in connection file
