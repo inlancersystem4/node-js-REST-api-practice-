@@ -19,6 +19,7 @@ router.get('/raw-queries', userCtrl.rawQueriesUser)
 router.get('/one-to-one', userCtrl.oneToOneUser)
 router.get('/one-to-many', userCtrl.oneToManyUser)
 router.get('/many-to-many', userCtrl.manyToManyUser)
+router.get('/paranoid', userCtrl.paranoidUser)
 
 
 

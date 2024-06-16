@@ -48,6 +48,10 @@ User.init(
     // Other model options go here
     sequelize, // We need to pass the connection instance
     modelName: 'users', // We need to choose the model name
+    paranoid: true,
+
+    // If you want to give a custom name to the deletedAt column
+    deletedAt: 'soft_delete',
   },
 );
 

@@ -265,7 +265,33 @@ var manyToManyUser = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
+var paranoidUser = async (req, res) => {
+    // const data = await User.create({ firstName: 'denishborad', lastName: "boraddenish" });
+    // const data = await User.destroy({
+    //     where: {
+    //         id: 1
+    //     },
+    //     force: true  // This use for paramanently delete record
+    // });
+
+    // restore soft delete record
+    // await User.restore({where: {
+    //     id: 2
+    // }});
+
+    // const data = await User.findAll({});
+
+    // This All record if that soft delete
+    // const data = await User.findAll({paranoid: false});
+
+    // Find By Id
+    const data = await User.findByPk(2, {paranoid: false});
+    
+    res.status(200).json({ data: data });
+}
+
+
 module.exports = {
     BaseUser, AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser, manyToManyUser
+    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser, manyToManyUser, paranoidUser
 }
