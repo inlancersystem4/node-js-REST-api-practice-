@@ -290,8 +290,31 @@ var paranoidUser = async (req, res) => {
     res.status(200).json({ data: data });
 }
 
+var loadingUser = async (req, res) => {
+    // Eager Loading has all data at a time
+    // Eager Loading also use this method
+    var data = await User.findOne({
+        where: {
+            id: 20
+        },
+        include: Contact,
+    })
+    
+    // // Lazy Loading fetch data one by one
+    // // this is lazy loading
+    // var data = await User.findOne({
+    //     where: {
+    //         id: 2
+    //     }
+    // })
+    // var contactData = await data.getContacts()
+    
+    res.status(200).json({ data: data });
+}
+
 
 module.exports = {
     BaseUser, AddUser, getUser, getUserbyId, queryUser, OperatorUserQuery, findersUserQuery, gettersUserQuery,
-    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser, manyToManyUser, paranoidUser
+    settersUserQuery, virtualUserQuery, rawQueriesUser, oneToOneUser, oneToManyUser, manyToManyUser, paranoidUser,
+    loadingUser
 }

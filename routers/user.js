@@ -20,6 +20,7 @@ router.get('/one-to-one', userCtrl.oneToOneUser)
 router.get('/one-to-many', userCtrl.oneToManyUser)
 router.get('/many-to-many', userCtrl.manyToManyUser)
 router.get('/paranoid', userCtrl.paranoidUser)
+router.get('/loading', userCtrl.loadingUser)
 
 
 
